@@ -82,8 +82,7 @@ With that, we have set up all of the pipelines for the project itself, so let's 
 We can do that with `bedrock service create` which, like all of the `bedrock` service and project commands, runs from the root of the repo.  In this case, `azure-vote` refers to the path from the root of the repo to the service.
 
 ```sh
-$ bedrock service create azure-vote \
-    --display-name azure-voting-app \
+$ bedrock service create azure-vote azure-voting-app \
     --helm-config-git https://github.com/mtarng/helm-charts \
     --helm-config-path chart-source/azure-vote \
     --helm-config-branch master
@@ -144,3 +143,13 @@ $ bedrock service install-build-pipeline azure-vote -n azure-vote-build-pipeline
 This step should create the build pipeline and build the current version of your service into a container using its Dockerfile.  It will then create a pull request on the HLD repo for this new image tag.
 
 Merge this PR and the HLD to Manifest pipeline will trigger. Once this pipeline completes, the azure-voting-app application will be deployed into your cluster via flux.
+
+
+## Conclusion
+At this point you have:
+- Onboarded a service repository
+- Set up an Azure DevOps pipeline to manage service deployments
+- Verified that the service is deployed to the Kubernetes cluster
+
+### Next steps
+- [Set up service introspection](https://github.com/microsoft/bedrock/blob/master/docs/introspection.md)

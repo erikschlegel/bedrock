@@ -4,37 +4,37 @@ variable "agent_vm_count" {
 }
 
 variable "agent_vm_size" {
-  type = string
+  type    = string
+  default = "Standard_D2s_v3"
 }
 
 variable "acr_enabled" {
-  type = string
+  type    = string
+  default = "true"
 }
 
 variable "gc_enabled" {
-  type = string
+  type    = string
+  default = "true"
+}
+
+variable "msi_enabled" {
+  type    = string
+  default = "true"
 }
 
 variable "cluster_name" {
   type = string
 }
 
-variable "msi_enabled" {
-  type = bool
-  default = false
-}
-
 variable "dns_prefix" {
   type = string
 }
 
-variable "enable_flux" {
-  type    = string
-  default = "true"
-}
-
 variable "flux_recreate" {
-  type = string
+  description = "Make any change to this value to trigger the recreation of the flux execution script."
+  type        = string
+  default     = "false"
 }
 
 variable "gitops_ssh_url" {
@@ -50,22 +50,14 @@ variable "gitops_path" {
   default = ""
 }
 
-variable "gitops_poll_interval" {
-  type    = string
-  default = "5m"
-}
-
-variable "gitops_label" {
-  type    = string
-  default = "flux-sync"
-}
-
 variable "gitops_url_branch" {
-  type = string
+  type    = string
+  default = "master"
 }
 
 variable "kubernetes_version" {
-  type = string
+  type    = string
+  default = "1.15.7"
 }
 
 variable "resource_group_name" {
@@ -76,18 +68,18 @@ variable "ssh_public_key" {
   type = string
 }
 
-variable "vnet_subnet_id" {
-  type = string
+variable "gitops_poll_interval" {
+  type    = string
+  default = "5m"
 }
 
-variable "service_principal_id" {
-  type = string
-  default = ""
+variable "gitops_label" {
+  type    = string
+  default = "flux-sync"
 }
 
-variable "service_principal_secret" {
+variable "vnet_name" {
   type = string
-  default = ""
 }
 
 variable "service_cidr" {
@@ -107,10 +99,14 @@ variable "docker_cidr" {
   description = "IP address (in CIDR notation) used as the Docker bridge IP address on nodes. Default of 172.17.0.1/16."
 }
 
-variable "kubeconfig_filename" {
-  description = "Name of the kube config file saved to disk."
-  type        = string
-  default     = "bedrock_kube_config"
+variable "address_space" {
+  description = "The address space that is used by the virtual network."
+  default     = "10.10.0.0/16"
+}
+
+variable "subnet_prefix" {
+  description = "The address prefix to use for the subnet."
+  default     = "10.10.1.0/24"
 }
 
 variable "network_plugin" {

@@ -1,5 +1,6 @@
-module "provider" {
-  source = "../../azure/provider"
+provider "azurerm" {
+  version = "=2.6.0"
+  features {}
 }
 
 data "azurerm_resource_group" "cluster_rg" {
@@ -7,7 +8,7 @@ data "azurerm_resource_group" "cluster_rg" {
 }
 
 module "vnet" {
-  source = "../../azure/vnet"
+  source = "github.com/microsoft/bedrock?ref=master//cluster/azure/vnet"
 
   resource_group_name     = data.azurerm_resource_group.cluster_rg.name
   vnet_name               = var.vnet_name
@@ -26,9 +27,8 @@ module "subnet" {
   resource_group_name  = data.azurerm_resource_group.cluster_rg.name
   address_prefix       = [var.subnet_prefix]
 }
-
 module "aks-gitops" {
-  source = "../../azure/aks-gitops"
+  source = "../../../cluster/azure/aks-gitops"
 
   acr_enabled              = var.acr_enabled
   agent_vm_count           = var.agent_vm_count
@@ -37,6 +37,7 @@ module "aks-gitops" {
   dns_prefix               = var.dns_prefix
   flux_recreate            = var.flux_recreate
   gc_enabled               = var.gc_enabled
+  msi_enabled              = var.msi_enabled
   gitops_ssh_url           = var.gitops_ssh_url
   gitops_ssh_key_path      = var.gitops_ssh_key_path
   gitops_path              = var.gitops_path
@@ -45,8 +46,6 @@ module "aks-gitops" {
   gitops_url_branch        = var.gitops_url_branch
   ssh_public_key           = var.ssh_public_key
   resource_group_name      = data.azurerm_resource_group.cluster_rg.name
-  service_principal_id     = var.service_principal_id
-  service_principal_secret = var.service_principal_secret
   vnet_subnet_id           = tostring(element(module.subnet.subnet_ids, 0))
   service_cidr             = var.service_cidr
   dns_ip                   = var.dns_ip

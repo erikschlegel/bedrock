@@ -149,7 +149,7 @@ variables:
   cluster_name: <insert val>
   dns_prefix: <insert value>
   gitops_ssh_url: <insert value>
-  gitops_ssh_key: <insert value>
+  gitops_ssh_key_path: <insert value>
   gitops_path: <insert value>
   resource_group_name: <insert value>
   ssh_public_key: <insert value>
@@ -176,7 +176,7 @@ Update the value for `resource_group_name` to be a variant of this, like `myname
 
 Update the `gitops_ssh_url` to your GitOps resource manifest repo, using the `ssh` url format available when you clone the repo from Azure DevOps. For example: `git@ssh.dev.azure.com:v3/myOrganization/myProject/app-cluster-manifests`.
 
-Set the `gitops_ssh_key` to the full path to the GitOps private key we created previously. If you followed those steps, you can find the full path by running:
+Set the `gitops_ssh_key_path` to the full path to the GitOps private key we created previously. If you followed those steps, you can find the full path by running:
 ```
 $ cd ~/cluster-deployment
 $ echo $(pwd)/keys/gitops-ssh-key
@@ -735,3 +735,12 @@ As a final step, you probably want to delete your Kubernetes cluster to save on 
 $ cd ~/cluster-deployment/cluster-generated/cluster
 $ terraform destroy -var-file=bedrock.tfvars
 ```
+
+## Conclusion
+At this point you have:
+- Created a Kubernetes cluster with Flux
+- Set up a resource manifest repository for GitOps
+- Verfied changes made to the resource manifest are applied to the Cluster
+
+### Next steps
+- [Set up a GitOps Azure DevOps pipeline](https://github.com/microsoft/bedrock/blob/master/docs/hld-to-manifest.md)

@@ -3,7 +3,7 @@ terraform {
 }
 
 module "provider" {
-  source = "github.com/microsoft/bedrock?ref=master//cluster/azure/provider"
+  source = "../../azure/provider"
 }
 
 data "azurerm_client_config" "current" {}
@@ -26,7 +26,7 @@ module "subnet" {
 }
 
 module "aks-gitops" {
-  source = "github.com/microsoft/bedrock?ref=master//cluster/azure/aks-gitops"
+  source = "../../azure/aks-gitops"
 
   acr_enabled              = var.acr_enabled
   agent_vm_count           = var.agent_vm_count
@@ -36,7 +36,7 @@ module "aks-gitops" {
   flux_recreate            = var.flux_recreate
   gc_enabled               = var.gc_enabled
   gitops_ssh_url           = var.gitops_ssh_url
-  gitops_ssh_key           = var.gitops_ssh_key
+  gitops_ssh_key_path      = var.gitops_ssh_key_path
   gitops_path              = var.gitops_path
   gitops_poll_interval     = var.gitops_poll_interval
   gitops_label             = var.gitops_label
@@ -54,7 +54,7 @@ module "aks-gitops" {
 
 # Create Azure Key Vault role for SP
 module "keyvault_flexvolume_role" {
-  source = "github.com/microsoft/bedrock?ref=master//cluster/azure/keyvault_flexvol_role"
+  source = "../../azure/keyvault_flexvol_role"
 
   resource_group_name  = data.azurerm_resource_group.keyvault.name
   service_principal_id = var.service_principal_id
@@ -64,7 +64,7 @@ module "keyvault_flexvolume_role" {
 
 # Deploy central keyvault flexvolume
 module "flex_volume" {
-  source = "github.com/microsoft/bedrock?ref=master//cluster/azure/keyvault_flexvol"
+  source = "../../azure/keyvault_flexvol"
 
   resource_group_name      = data.azurerm_resource_group.keyvault.name
   service_principal_id     = var.service_principal_id
