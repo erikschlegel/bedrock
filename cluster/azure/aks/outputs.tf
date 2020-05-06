@@ -8,6 +8,11 @@ output "kube_config" {
   value     = azurerm_kubernetes_cluster.cluster.kube_config_raw
 }
 
+output "kube_config_block" {
+  sensitive = true
+  value     = azurerm_kubernetes_cluster.cluster.kube_config
+}
+
 output "kubeconfig_done" {
   value = join("", local_file.cluster_credentials.*.id)
 }
@@ -26,6 +31,10 @@ output "kubelet_client_id" {
 
 output "kubelet_id" {
   value = data.external.msi_object_id.result.kubelet_id
+}
+
+output "cluster_name" {
+  value = azurerm_kubernetes_cluster.cluster.name
 }
 
 output "node_resource_group" {

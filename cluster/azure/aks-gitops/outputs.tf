@@ -29,3 +29,11 @@ output "kubelet_resource_id" {
 output "node_resource_group" {
   value = module.aks.node_resource_group
 }
+
+output "cluster_name" {
+  value = module.aks.cluster_name
+}
+
+output "kube_config" {
+  value = module.aks.kube_config_block
+}
