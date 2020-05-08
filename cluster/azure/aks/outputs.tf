@@ -38,7 +38,7 @@ output "cluster_name" {
 }
 
 output "node_resource_group" {
-  value = data.external.msi_object_id.result.node_resource_group
+  value = azurerm_kubernetes_cluster.cluster.node_resource_group
 }
 
 output "kubelet_resource_id" {
