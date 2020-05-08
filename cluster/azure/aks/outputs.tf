@@ -26,7 +26,7 @@ output "msi_client_id" {
 }
 
 output "kubelet_client_id" {
-  value = azurerm_kubernetes_cluster.kubelet_identity.object_id
+  value = azurerm_kubernetes_cluster.cluster.kubelet_identity.0.object_id
 }
 
 output "kubelet_id" {
